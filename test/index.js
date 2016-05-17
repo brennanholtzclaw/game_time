@@ -1,3 +1,5 @@
+// require ball js file
+
 describe('ball', function() {
 
   it('should move each game loop', function() {
