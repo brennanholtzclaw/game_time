@@ -1,9 +1,9 @@
-// require ball js file
+var chai = require('chai');
+var assert = chai.assert;
 
-//= require ../lib/index.js
+var Ball = require('../lib/index');
 
 describe('ball', function() {
-
   it('should move each game loop', function() {
     var canvas = function(){
       x = 10,
