@@ -1,24 +1,20 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var Ball = require('../lib/index');
+var Ball = require('../lib/ball');
 
-describe('ball', function() {
-  it('should move each game loop', function() {
-    var canvas = function(){
-      x = 10,
-      y = 10
-    }
-    var ball = new Ball(25, 25, 5)
+describe('Ball', function(){
+  context('it should move twice', function(){
+    it('should increase x by two', function(){
+      var ball = new Ball(2, 2, 5)
 
-    assert(ball.x == 5)
-    assert(ball.y == 5)
+      assert.equal(ball.x, 2);
+      assert.equal(ball.y, 2);
 
-    for(i=0;i<ball.x;i++) {
       ball.move();
-    };
 
-    assert(ball.x == 20)
-    assert(ball.y == 20)
-  });
-});
+      assert.equal(ball.x, 5);
+      assert.equal(ball.y, 5);
+    })
+  })
+})
