@@ -1,7 +1,7 @@
 const chai = require('chai');
 const assert = chai.assert;
-//const sinon = require('sinon/pkg/sinon');
 const Ball = require("../lib/ball");
+const sinon = require('sinon');
 
 describe("Ball", function(){
   context("with assigned attributes", function(){
@@ -22,23 +22,46 @@ describe("Ball", function(){
     it("should not be moving", function(){
       assert.equal(ball.moving, false)
     })
-
-  context("when moving", function(){
-    var ball = new Ball(2, 2, 10)
-
-    xit("should increase its x and y with no bounce", sinon.test(function(){
-      ball = Ball.new(0, 0, 10)
-      ball.speed = 1;
-      ball.xDirection = 1;
-      ball.yDirection = 1;
-
-      var noBounce = sinon.stub(Ball, "bounceCheck");
-      noBounce.yields(null, this)
-
-      ball.move();
-      nobounce.restore();
-
-    }))
   })
 })
+
+describe("move()", function(){
+  it("should increase its x and y with no bounce", function(){
+    var ball = new Ball(0, 0, 10)
+    ball.speed = 1;
+    ball.xDirection = 1;
+    ball.yDirection = 1;
+    sinon.stub(Ball.prototype, "bounceCheck");
+
+    assert.equal(ball.x, 0)
+    assert.equal(ball.y, 0)
+
+    ball.move();
+
+    assert.equal(ball.x, 1)
+    assert.equal(ball.y, 1)
+
+    ball.xDirection = -1;
+    ball.yDirection = 1;
+
+    ball.move();
+
+    assert.equal(ball.x, 0)
+    assert.equal(ball.y, 2)
+  });
+
+  xit("should have a different direction after a bounce check", function(){
+    var obstacleCoords =[[0,0,3,3]]; //a square 3 x 3, starting at 0,0
+
+    var ball = new Ball(0, 0, 4); // ball starting at 0, 1, and radius of 4
+
+    assert.equal(ball.xDirection, 1);
+    assert.equal(ball.yDirection, 1);
+
+    ball.bounceCheck();
+
+    assert.equal(ball.xDirection, 1);
+    assert.equal(ball.yDirection, -1);
+
+  })
 })
