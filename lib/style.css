@@ -4,3 +4,22 @@
   display: block;
   background-color: green;
 }
+
+#welcome-card {
+  bottom: 15%;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding: 12px;
+  opacity: 0.80;
+  border-radius: 15px;
+  position: fixed;
+  width: 50%;
+  min-width: 300px;
+  height: 400px;
+  background: ;
+  z-index: 15;
+  display: none;
+  text-align: center;
+  /*overflow-y: scroll;*/
+}

@@ -4,13 +4,24 @@
   <meta charset="utf-8">
   <title>Game Time</title>
   <link href="lib/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 </head>
 <body>
+
 
   <canvas id="game"
           class="game-canvas"
           width="700px"
           height="600px"></canvas>
+
+  <div id='welcome-card'>
+    <h1>Welcome to Puts-Puts Golf</h1>
+    <form id='start-game-form'>
+      <input type='text' id="player-name" name="Enter Your Player Name">
+      <button id='start-button' type="button">START GAME!</button>
+    </form>
+  </div>
+
 
   <script src="main.bundle.js"></script>
 </body>

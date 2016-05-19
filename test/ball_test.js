@@ -1,7 +1,7 @@
-const chai = require('chai')
+const chai = require('chai');
 const assert = chai.assert;
-const sinon = require('sinon/pkg/sinon');
-const Ball = require("../lib/ball")
+//const sinon = require('sinon/pkg/sinon');
+const Ball = require("../lib/ball");
 
 describe("Ball", function(){
   context("with assigned attributes", function(){
@@ -40,4 +40,5 @@ describe("Ball", function(){
 
     }))
   })
+})
 })
