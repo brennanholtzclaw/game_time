@@ -64,4 +64,11 @@ describe("move()", function(){
     assert.equal(ball.yDirection, -1);
 
   })
+
+  xit("should return true if ball is colliding from X direction", function(){
+    var obstacleCoords =[[0,0,3,3]]; //a square 3 x 3, starting at 0,0
+    var ball = new Ball(0, 0, 4); // ball starting at 0, 1, and radius of 4
+    var prevX = 1;
+    assert.equal(ball.changeXDirection(obstacleCoords[0], obstacleCoords[3], prevX), true)
+  })
 });
