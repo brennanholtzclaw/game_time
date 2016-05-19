@@ -1,9 +1,6 @@
 const chai = require('chai')
 const assert = chai.assert;
-<<<<<<< HEAD
-=======
 const sinon = require('sinon/pkg/sinon');
->>>>>>> parent of 9e5f9fb... Revert "Setup new testing"
 const Ball = require("../lib/ball")
 
 describe("Ball", function(){
