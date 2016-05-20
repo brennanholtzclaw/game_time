@@ -5,6 +5,8 @@
   background-color: green;
 }
 
+/*style welcome card*/
+
 #welcome-card {
   bottom: 15%;
   right: 0;
@@ -17,9 +19,19 @@
   width: 50%;
   min-width: 300px;
   height: 400px;
-  background: ;
-  z-index: 15;
-  display: none;
+  background: red;
+  /*z-index: 15;*/
   text-align: center;
-  /*overflow-y: scroll;*/
+}
+
+#ball-color {
+  max-width: 23vw;
+}
+
+input {
+  text-align: center;
+}
+
+#player-name {
+  max-width: 23vw;
 }
