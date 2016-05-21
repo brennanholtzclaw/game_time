@@ -1,31 +1,52 @@
 .game-canvas {
-  border: 1px dashed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 12px;
   margin: auto;
   display: block;
+  position: fixed;
+  /*width: 50%;*/
+  min-width: 700px;
+  height: 600px;
   background-color: green;
+
 }
 
 /*style welcome card*/
 
 #welcome-card {
-  bottom: 15%;
+  /*border: 1px dashed;*/
+  bottom: 0%;
   right: 0;
   left: 0;
+  top: 0;
   margin: auto;
   padding: 12px;
-  opacity: 0.80;
+  /*opacity: 0.80;*/
   border-radius: 15px;
   position: fixed;
   width: 50%;
-  min-width: 300px;
-  height: 400px;
-  background: red;
+  min-width: 700px;
+  height: 600px;
+  background-image: url('../images/welcome-card-background.png');
+  background-size: 700px 600px;
   /*z-index: 15;*/
   text-align: center;
+  /*text-shadow: 2px 1px white;*/
+  /*color: purple;*/
+  /*font-family: "Comic Sans MS", cursive, sans-serif;*/
 }
 
-#ball-color {
-  max-width: 23vw;
+.ball-colors {
+  width: 80px;
+  height: 80px;
+  display: inline;
+}
+
+.ball-color-div {
+  display: inline;
 }
 
 input {
@@ -34,4 +55,26 @@ input {
 
 #player-name {
   max-width: 23vw;
+}
+
+#welcome-text {
+  margin-top: -10px;
+  text-shadow: 2px 1px purple;
+  color: pink;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+ #ball-color-text {
+  text-shadow: 2px 1px purple;
+  color: yellow;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+ }
+
+#start-game-form {
+  margin-top: 100px;
+}
+
+::-webkit-input-placeholder {
+  /*text-shadow: 2px 1px white;*/
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: blue !important;
 }
