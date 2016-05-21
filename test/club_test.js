@@ -6,13 +6,28 @@ var Hole = require("../lib/hole")
 var Club = require("../lib/club")
 
 describe("The club should know locations", function(){
-  it("should know it's own location, and the ball location", function(){
+  it("should know it's positive slope to the ball", function(){
     var ball = new Ball(5,5,5);
-    var club = new Club(1, 1, ball, context);
-    sinon.stub(Club.prototype, "clubToBallSlope")
+    var club = new Club(0, ball, 1, 1);
 
-    assert.equal(club.getMousePosition.x, 1)
-    assert.equal(club.getMousePosition.y, 1)
+    assert.equal(club.clubToBallSlope({x: 1, y: 1}).bothSlope, 1)
+  });
+
+  it("should know it's negative slope to the ball", function(){
+    var ball = new Ball(5,5,5);
+    var club = new Club(0, ball, 10, 10);
+    var slope = club.clubToBallSlope({x: 0, y: 10}).bothSlope
+
+    assert.equal(slope, -1)
+  });
+
+  it("should calculate speed based on slope", function(){
+    var ball = new Ball(5,5,5);
+    var club = new Club(0, ball, 10, 10);
+    club.speedCheck(1, 1, 1, 1, 10, 11, 11, 1)
+
+    assert.equal(club.golfBall.xSpeed, 0.02)
+    assert.equal(club.golfBall.ySpeed, 0.02)
   });
 });
 
