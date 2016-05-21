@@ -1,8 +1,8 @@
-const chai = require('chai')
-const assert = chai.assert;
-const sinon = require('sinon');
-const Ball = require("../lib/ball")
-const Hole = require("../lib/hole")
+var chai = require('chai')
+var assert = chai.assert;
+var sinon = require('sinon');
+var Ball = require("../lib/ball")
+var Hole = require("../lib/hole")
 
 describe("Ball", function(){
   context("with assigned attributes", function(){
