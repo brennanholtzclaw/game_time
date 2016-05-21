@@ -1,7 +1,7 @@
 {
-  "name": "game-time-starter-kit",
+  "name": "Puts-Puts Golf",
   "version": "1.0.0",
-  "description": "A starter kit for Turing School's Game Time project.",
+  "description": "Putt-Putt mini-golf implemented in JavaScript",
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/turingschool-examples/game-time-starter-kit.git"
+    "url": "https://github.com/brennanholtzclaw/game_time.game-time-starter-kit"
   },
-  "author": "Steve Kinney",
+  "author": "Brennan Holtzclaw, Nate Venn, Heidi Hoopes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/turingschool-examples/game-time-starter-kit/issues"
+    "url": "https://github.com/brennanholtzclaw/game_time/issues"
   },
   "homepage": "https://github.com/turingschool-examples/game-time-starter-kit",
   "devDependencies": {
