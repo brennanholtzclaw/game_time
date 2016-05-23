@@ -5,7 +5,7 @@ const Bumper = require("../lib/bumper")
 
 describe("Bumper", function(){
   context("with assigned attributes", function(){
-    var bumper = new Bumper(0,0,10,10)
+    var bumper = new Bumper({minX: 0, minY:0, maxX:10, maxY:10})
 
     it("should have an x min position", function(){
       assert.equal(bumper.minX, 0)
