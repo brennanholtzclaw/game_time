@@ -1,7 +1,7 @@
-const chai = require('chai')
-const assert = chai.assert;
-const sinon = require('sinon');
-const Bumper = require("../lib/bumper")
+var chai = require('chai')
+var assert = chai.assert;
+var sinon = require('sinon');
+var Bumper = require("../lib/bumper")
 
 describe("Bumper", function(){
   context("with assigned attributes", function(){
