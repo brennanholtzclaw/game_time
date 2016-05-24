@@ -1,11 +1,11 @@
-const chai = require('chai')
-const assert = chai.assert;
-const sinon = require('sinon');
-const Bumper = require("../lib/bumper")
+var chai = require('chai')
+var assert = chai.assert;
+var sinon = require('sinon');
+var Bumper = require("../lib/bumper")
 
 describe("Bumper", function(){
   context("with assigned attributes", function(){
-    var bumper = new Bumper(0,0,10,10)
+    var bumper = new Bumper({minX: 0, minY:0, maxX:10, maxY:10})
 
     it("should have an x min position", function(){
       assert.equal(bumper.minX, 0)

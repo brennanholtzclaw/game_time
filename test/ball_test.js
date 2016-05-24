@@ -1,12 +1,13 @@
-const chai = require('chai')
-const assert = chai.assert;
-const sinon = require('sinon');
-const Ball = require("../lib/ball")
-const Hole = require("../lib/hole")
+var chai = require('chai')
+var assert = chai.assert;
+var sinon = require('sinon');
+var Ball = require("../lib/ball")
+var Hole = require("../lib/hole")
 
 describe("Ball", function(){
   context("with assigned attributes", function(){
-    var ball = new Ball(2, 2, 10)
+    var coords = {x:2, y:2, radius:10}
+    var ball = new Ball(coords)
 
     it("should have an x position", function(){
       assert.equal(ball.x, 2)
@@ -28,7 +29,9 @@ describe("Ball", function(){
 
 describe("move()", function(){
   it("should increase its x and y with no bounce", function(){
-    var ball = new Ball(0, 0, 10)
+    var coords = {x:0, y:0, radius:10}
+    var ball = new Ball(coords)
+
     ball.xSpeed = 4;
     ball.ySpeed = 4;
     ball.xDirection = 1;
@@ -55,7 +58,7 @@ describe("move()", function(){
   });
 
   xit("should have a different direction after a bounce check", function(){
-    var obstacleCoords =[[0,0,3,3]]; //a square 3 x 3, starting at 0,0
+    //create a bumper
 
     var ball = new Ball(0, 0, 4); // ball starting at 0, 1, and radius of 4
 
@@ -72,7 +75,8 @@ describe("move()", function(){
 
 describe("checking if it collides with puttHole", function(){
   it("should stop moving when on the same coords as the hole", function(){
-    var ball = new Ball(0, 0, 4);
+    var coords = {x:0, y:0, radius:4}
+    var ball = new Ball(coords)
     var puttHole = new Hole(0, 0);
 
     ball.moving = true;
@@ -83,7 +87,9 @@ describe("checking if it collides with puttHole", function(){
   })
 
   it("should stop moving when it's within its radius of the hole", function(){
-    var ball = new Ball(0, 0, 4);
+    var coords = {x:0, y:0, radius:4}
+    var ball = new Ball(coords)
+    
     var puttHole = new Hole(ball.radius, ball.radius);
 
     ball.moving = true;
