@@ -1,0 +1,141 @@
+.game-canvas {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 12px;
+  margin: auto;
+  display: block;
+  position: fixed;
+  min-width: 700px;
+  height: 600px;
+  background-color: green;
+}
+
+
+/*style welcome card*/
+#welcome-card {
+  bottom: 0%;
+  right: 0;
+  left: 0;
+  top: 0;
+  margin: auto;
+  padding: 12px;
+  border-radius: 15px;
+  position: fixed;
+  width: 30%;
+  min-width: 700px;
+  height: 600px;
+  /*background-image: url('../images/welcome-card-background.png');*/
+  background: green;
+  background-size: 700px 600px;
+  text-align: center;
+}
+
+input[type=text] {
+  font-size: 1.5rem !important;
+  color: blue;
+}
+
+.ball-colors {
+  width: 80px;
+  height: 80px;
+  display: inline;
+}
+
+.ball-color-div {
+  display: inline;
+}
+
+input {
+  text-align: center;
+}
+
+#player-name {
+  max-width: 20vw;
+}
+
+#welcome-text {
+  margin-top: 20px;
+  text-shadow: 2px 1px purple;
+  color: pink;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+ #ball-color-text {
+  text-shadow: 2px 1px purple;
+  color: yellow;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+ }
+
+#start-game-form {
+  margin-top: 100px;
+}
+
+::-webkit-input-placeholder {
+  /*text-shadow: 2px 1px white;*/
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: blue !important;
+}
+
+/*style score card*/
+
+#score-card {
+  bottom: 60%;
+  right: 0;
+  left: 71%;
+  margin: auto;
+  padding: 12px;
+  display: none;
+  border-radius: 15px;
+  position: fixed;
+  width: 230px;
+  height: 250px;
+  background: transparent;
+  text-align: center;
+}
+
+th {
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: green !important;
+	margin: 30px auto;
+	text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+	color: #333;
+	opacity: 0.9;
+}
+
+td {
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+  color: blue;
+  font-weight: 900;
+}
+
+/*#background-img {*/
+  /*position: fixed;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*text-align: center;*/
+/*}*/
+
+/*img.make-it-fit {*/
+  /*max-width: 100%;*/
+  /*max-height: 100%;*/
+  /*width: 1000px;*/
+  /*height: 700px;*/
+/*}*/
+
+/*html {*/
+  /*background-image: url('../images/background-images.png');*/
+  /*-webkit-background-size: cover;*/
+  /*-moz-background-size: cover;*/
+  /*-o-background-size: cover;*/
+  /*background-size: cover;*/
+  /*[>background-size: 800 800;<]*/
+/*}*/
