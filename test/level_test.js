@@ -8,15 +8,15 @@ var Bumper = require('../lib/bumper');
 
 describe("Level", function(){
   context("with assigned attributes", function(){
-    var level = new Level(1);
+    var level = new Level(0);
 
     it("should have a level number", function(){
-      assert.equal(level.number, 1);
+      assert.equal(level.number, 0);
     })
   })
 
   it("assigns other attributes from external level definitions", function(){
-    var level = new Level("test");
+    var level = new Level(0);
 
     assert.equal(level.par, 10)
     assert.instanceOf(level.hole, Hole)
