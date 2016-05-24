@@ -13,13 +13,13 @@ describe("Game", function(){
       assert.equal(game.currentLevel.number, 1)
     })
 
-    it("can update its level to another level", function(){
+    xit("can update its level to another level", function(){
       game.updateLevel(0)
 
       assert.equal(game.currentLevel.number, 0)
     })
 
-    it("can update its level attributes to another level's", function(){
+    xit("can update its level attributes to another level's", function(){
       var level = new Level(0);
 
       assert.notEqual(game.currentLevel.ball.x, level.ball.x)
