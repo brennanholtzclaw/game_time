@@ -13,14 +13,19 @@
           width="700px"
           height="600px"></canvas>
 
-  <div id='welcome-card'>
+  <section id='welcome-card'>
+
+    <header>
     <h3 class='text'id='welcome-text'>Welcome to Puts-Puts Golf</h3>
+    </header>
+
     <form id='start-game-form'>
       <input type='text' id="player-name" placeholder="Enter your player name"
          name="name" class='validate' autocomplete='off'><br><br>
     </form>
+
     <h5 class='text' id='ball-color-text'>Choose a ball to get start</h5><br><br><br>
-        <div class="row">
+
           <div class="col s12 m12" id='ball-color-div'>
               <a class='a-ball-color' id='white' href='#'><img class='ball-colors'
                 src='./images/white-ball.png' /></a>
@@ -35,11 +40,13 @@
               <a class='a-ball-color' id='yellow' href='#'><img class='ball-colors'
                src='./images/yellow-ball.png' /></a>
           </div>
-        </div>
-  </div>
 
-          <div id='score-card'>
+  </section>
+
+          <section id='score-card'>
+
             <table class='bordered centered' id='score-table'>
+
               <thead>
                 <tr>
                   <th data-field="hole">Hole</th>
@@ -58,7 +65,12 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+          </section>
+
+          <section id='finished-hole-card'>
+            <h4 id='stroke-to-par'></h4><br><br>
+            <h5 id='total-score'></h5>
+          </section>
 
   <script src="main.bundle.js"></script>
 </body>

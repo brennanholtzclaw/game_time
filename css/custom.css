@@ -115,6 +115,54 @@ td {
   font-weight: 900;
 }
 
+/*style finished hole card*/
+
+#finished-hole-card {
+  bottom: 0%;
+  right: 0;
+  left: 0;
+  top: 0;
+  margin: auto;
+  opacity: 0.85;
+  display: none;
+  padding: 12px;
+  border-radius: 15px;
+  position: fixed;
+  width: 30%;
+  min-width: 600px;
+  height: 400px;
+  background: blue;
+  background-size: 700px 600px;
+  text-align: center;
+}
+
+#stroke-to-par {
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+	font-size: 40px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: white !important;
+	margin: 30px auto;
+	text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+	color: #333;
+	opacity: 0.9;
+}
+
+#total-score {
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+	font-size: 26px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: white !important;
+	margin: 30px auto;
+	text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+	color: #333;
+	opacity: 0.9;
+}
 /*#background-img {*/
   /*position: fixed;*/
   /*left: 0;*/
