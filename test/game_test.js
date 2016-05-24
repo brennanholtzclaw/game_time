@@ -13,21 +13,21 @@ describe("Game", function(){
     })
 
     it("can update its level to another level", function(){
-      assert.notEqual(game.currentLevel.number, 0)
-      game.updateLevel(0)
+      game.currentLevel = new Level(0)
+      assert.notEqual(game.currentLevel.number, 1)
+      game.updateLevel();
 
-      assert.equal(game.currentLevel.number, 0)
+      assert.equal(game.currentLevel.number, 1)
     })
 
     it("can update its level attributes to the next level's", function(){
-      var game = new Game
-      var level = new Level(0);
+      var level = new Level(2);
+      game.currentLevel = new Level(0)
+      assert.notEqual(game.currentLevel.number, 1)
+      game.updateLevel();
+      game.updateLevel();
 
-      assert.equal(game.currentLevel.number, 1)
-
-      game.updateLevel(0)
-
-      assert.equal(game.currentLevel.number, 0)
+      assert.equal(game.currentLevel.number, 2)
       assert.equal(game.ball.x, level.ball.x)
       assert.equal(game.ball.y, level.ball.y)
       assert.equal(game.par, level.par)
