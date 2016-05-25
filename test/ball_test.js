@@ -56,21 +56,7 @@ describe("move()", function(){
     assert.equal(ball.x, 2)
     assert.equal(ball.y, 6)
   });
-
-  xit("should have a different direction after a bounce check", function(){
-    //create a bumper
-
-    var ball = new Ball(0, 0, 4); // ball starting at 0, 1, and radius of 4
-
-    assert.equal(ball.xDirection, 1);
-    assert.equal(ball.yDirection, 1);
-
-    ball.collisionCheck();
-
-    assert.equal(ball.xDirection, 1);
-    assert.equal(ball.yDirection, -1);
-  })
-});
+})
 
 describe("checking if it collides with puttHole", function(){
   it("should stop moving when on the same coords as the hole", function(){
