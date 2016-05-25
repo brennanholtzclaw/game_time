@@ -36,7 +36,7 @@ describe("move()", function(){
     ball.ySpeed = 4;
     ball.xDirection = 1;
     ball.yDirection = 1;
-    sinon.stub(Ball.prototype, "bounceCheck");
+    sinon.stub(Ball.prototype, "collisionCheck");
 
     assert.equal(ball.x, 0)
     assert.equal(ball.y, 0)
@@ -64,12 +64,11 @@ describe("move()", function(){
 
     assert.equal(ball.xDirection, 1);
     assert.equal(ball.yDirection, 1);
-var obtsacles = []
-    ball.bounceCheck();
+
+    ball.collisionCheck();
 
     assert.equal(ball.xDirection, 1);
     assert.equal(ball.yDirection, -1);
-
   })
 });
 
