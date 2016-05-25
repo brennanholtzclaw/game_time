@@ -10,6 +10,8 @@
   min-width: 700px;
   height: 600px;
   background-color: green;
+  background-image: url("../images/grass.jpg");
+  background-repeat: repeat;
 }
 
 
