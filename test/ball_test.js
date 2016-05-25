@@ -64,7 +64,7 @@ describe("move()", function(){
 
     assert.equal(ball.xDirection, 1);
     assert.equal(ball.yDirection, 1);
-
+var obtsacles = []
     ball.bounceCheck();
 
     assert.equal(ball.xDirection, 1);
@@ -89,7 +89,7 @@ describe("checking if it collides with puttHole", function(){
   it("should stop moving when it's within its radius of the hole", function(){
     var coords = {x:0, y:0, radius:4}
     var ball = new Ball(coords)
-    
+
     var puttHole = new Hole(ball.radius, ball.radius);
 
     ball.moving = true;
