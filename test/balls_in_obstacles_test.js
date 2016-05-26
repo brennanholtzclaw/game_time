@@ -19,6 +19,14 @@ describe('Collisions checks', function(){
     assert.isNotOk(noncollidingBall.isCollidingWith(sand))
   })
 
+  it("returns true on a corner of a bumper", function (){
+    // ball and bumper only have a shared corner at 2,2 with no other overlap
+    var sand = new Bumper({minX: 2, minY: 2, maxX: 4, maxY: 4, type: "sand"})
+    var collidingBall = new Ball({x:1, y: 1, radius: 1})
+
+    assert.isOk(collidingBall.isCollidingWith(sand))
+  })
+
 
   it("in sand the ball slows down", function() {
     var sand = new Bumper({minX: 0, minY: 0, maxX: 3, maxY: 3, type: "sand"})
