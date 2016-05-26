@@ -54,8 +54,8 @@
 	var Bumper = __webpack_require__(4);
 	var domManipulator = __webpack_require__(5);
 	var Game = __webpack_require__(6);
-	var Club = __webpack_require__(16);
-	var endLevel = __webpack_require__(17);
+	var Club = __webpack_require__(17);
+	var endLevel = __webpack_require__(18);
 	var ballPuttSound = new Audio();
 	var endLevelClapSound = new Audio();
 
@@ -1833,6 +1833,9 @@
 	        ballBounceSound.play();
 	      } else if (bumper.type == "sand") {
 	        this.adjustSpeed(0.8);
+	      } else if (bumper.type == 'water') {
+	        this.adjustSpeed(0.8);
+	        this.sink();
 	      }
 	    }
 	  }, this);
@@ -1859,6 +1862,13 @@
 	Ball.prototype.adjustSpeed = function (multiplier) {
 	  this.xSpeed *= multiplier;
 	  this.ySpeed *= multiplier;
+	};
+
+	Ball.prototype.sink = function () {
+	  this.x = 200;
+	  this.y = 500;
+	  this.xSpeed = 0;
+	  this.ySpeed = 0;
 	};
 
 	Ball.prototype.changeXDirection = function (xMin, xMax, prevX, that) {
@@ -1892,9 +1902,19 @@
 	Bumper.prototype.draw = function () {
 	  if (this.type == "bumper") {
 	    this.context.fillStyle = this.color;
-	  } else {
+	  } else if (this.type == 'sand') {
 	    var image = new Image();
 	    image.src = "./images/sand2.png";
+	    var pattern = this.context.createPattern(image, "repeat");
+	    this.context.fillStyle = pattern;
+	  } else if (this.type == 'water') {
+	    var image = new Image();
+	    image.src = "./images/water.jpeg";
+	    var pattern = this.context.createPattern(image, "repeat");
+	    this.context.fillStyle = pattern;
+	  } else if (this.type == 'bridge') {
+	    var image = new Image();
+	    image.src = "./images/bridge.jpeg";
 	    var pattern = this.context.createPattern(image, "repeat");
 	    this.context.fillStyle = pattern;
 	  }
@@ -2006,7 +2026,7 @@
 
 	function Game(context) {
 	  this.currentLevel = new Level(1, context);
-	  this.lastLevel = 3;
+	  this.lastLevel = 4;
 	  this.hole = this.currentLevel.hole;
 	  this.ball = this.currentLevel.ball;
 	  this.bumpers = this.currentLevel.bumpers;
@@ -2034,8 +2054,8 @@
 
 	var getPar = __webpack_require__(8);
 	var getBumpers = __webpack_require__(9);
-	var getHole = __webpack_require__(14);
-	var getBall = __webpack_require__(15);
+	var getHole = __webpack_require__(15);
+	var getBall = __webpack_require__(16);
 
 	var Level = function Level(levelNum, context) {
 	  return {
@@ -2059,7 +2079,8 @@
 	  0: 10,
 	  1: 2,
 	  2: 3,
-	  3: 4
+	  3: 4,
+	  4: 4
 	};
 
 	var GetPar = function GetPar(level) {
@@ -2074,17 +2095,19 @@
 
 	'use strict';
 
-	var bumpersOne = __webpack_require__(10);
-	var bumpersTest = __webpack_require__(11);
+	var bumpersTest = __webpack_require__(10);
+	var bumpersOne = __webpack_require__(11);
 	var bumpersTwo = __webpack_require__(12);
 	var bumpersThree = __webpack_require__(13);
+	var bumpersFour = __webpack_require__(14);
 
 	var Bumper = __webpack_require__(4);
 	var bumpers = {
 	  0: bumpersTest,
 	  1: bumpersOne,
 	  2: bumpersTwo,
-	  3: bumpersThree
+	  3: bumpersThree,
+	  4: bumpersFour
 	};
 
 	var GetBumpers = function GetBumpers(level, context, color) {
@@ -2105,9 +2128,9 @@
 
 	var Bumper = __webpack_require__(4);
 
-	var bumpersOne = [{ minX: 200, minY: 50, maxX: 500, maxY: 60, type: "bumper" }, { minX: 200, minY: 450, maxX: 500, maxY: 460, type: "bumper" }, { minX: 200, minY: 50, maxX: 210, maxY: 450, type: "bumper" }, { minX: 500, minY: 50, maxX: 510, maxY: 460, type: "bumper" }, { minX: 275, minY: 150, maxX: 425, maxY: 160, color: "blue", type: "bumper" }, { minX: 350, minY: 150, maxX: 360, maxY: 360, color: "blue", type: "bumper" }, { minX: 210, minY: 400, maxX: 260, maxY: 450, type: "sand" }, { minX: 450, minY: 400, maxX: 500, maxY: 450, type: "sand" }];
+	var bumpersTest = [{ minX: 1, minY: 1, maxX: 2, maxY: 2, type: "bumper" }];
 
-	module.exports = bumpersOne;
+	module.exports = bumpersTest;
 
 /***/ },
 /* 11 */
@@ -2117,9 +2140,9 @@
 
 	var Bumper = __webpack_require__(4);
 
-	var bumpersTest = [{ minX: 1, minY: 1, maxX: 2, maxY: 2, type: "bumper" }];
+	var bumpersOne = [{ minX: 200, minY: 50, maxX: 500, maxY: 60, type: "bumper" }, { minX: 200, minY: 450, maxX: 500, maxY: 460, type: "bumper" }, { minX: 200, minY: 50, maxX: 210, maxY: 450, type: "bumper" }, { minX: 500, minY: 50, maxX: 510, maxY: 460, type: "bumper" }, { minX: 275, minY: 150, maxX: 425, maxY: 160, color: "blue", type: "bumper" }, { minX: 350, minY: 150, maxX: 360, maxY: 360, color: "blue", type: "bumper" }, { minX: 210, minY: 400, maxX: 260, maxY: 450, type: "sand" }, { minX: 450, minY: 400, maxX: 500, maxY: 450, type: "sand" }];
 
-	module.exports = bumpersTest;
+	module.exports = bumpersOne;
 
 /***/ },
 /* 12 */
@@ -2129,7 +2152,8 @@
 
 	var Bumper = __webpack_require__(4);
 
-	var bumpersTwo = [{ minX: 50, minY: 50, maxX: 250, maxY: 60, type: "bumper" }, { minX: 50, minY: 250, maxX: 660, maxY: 260, type: "bumper" }, { minX: 50, minY: 50, maxX: 60, maxY: 260, type: "bumper" }, { minX: 250, minY: 50, maxX: 260, maxY: 200, type: "bumper" }, { minX: 250, minY: 200, maxX: 460, maxY: 210, type: "bumper" }, { minX: 450, minY: 50, maxX: 460, maxY: 200, type: "bumper" }, { minX: 450, minY: 50, maxX: 660, maxY: 60, type: "bumper" }, { minX: 650, minY: 50, maxX: 660, maxY: 260, type: "bumper" }];
+	var bumpersTwo = [{ minX: 50, minY: 550, maxX: 250, maxY: 560, type: "bumper" }, { minX: 450, minY: 550, maxX: 660, maxY: 560, type: "bumper" }, { minX: 50, minY: 50, maxX: 250, maxY: 60, type: "bumper" }, { minX: 250, minY: 250, maxX: 460, maxY: 260, type: "bumper" }, { minX: 250, minY: 400, maxX: 460, maxY: 410, type: "bumper" }, { minX: 250, minY: 450, maxX: 460, maxY: 460, type: "bumper" }, { minX: 50, minY: 50, maxX: 60, maxY: 560, type: "bumper" }, { minX: 250, minY: 50, maxX: 260, maxY: 200, type: "bumper" }, { minX: 250, minY: 450, maxX: 260, maxY: 560, type: "bumper" }, { minX: 250, minY: 260, maxX: 260, maxY: 400, type: "bumper" }, { minX: 450, minY: 260, maxX: 460, maxY: 400, type: "bumper" }, { minX: 250, minY: 200, maxX: 460, maxY: 210, type: "bumper" }, { minX: 450, minY: 50, maxX: 460, maxY: 200, type: "bumper" }, { minX: 450, minY: 450, maxX: 460, maxY: 560, type: "bumper" }, { minX: 450, minY: 50, maxX: 660, maxY: 60, type: "bumper" }, { minX: 650, minY: 50, maxX: 660, maxY: 560, type: "bumper" }, { minX: 275, minY: 411, maxX: 325, maxY: 449, type: "sand" }, { minX: 375, minY: 411, maxX: 425, maxY: 449, type: "sand" }];
+
 	module.exports = bumpersTwo;
 
 /***/ },
@@ -2148,6 +2172,18 @@
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var Bumper = __webpack_require__(4);
+
+	var bumpersFour = [{ minX: 50, minY: 50, maxX: 660, maxY: 60, type: "bumper" }, { minX: 50, minY: 550, maxX: 650, maxY: 560, type: "bumper" }, { minX: 50, minY: 50, maxX: 60, maxY: 550, type: "bumper" }, { minX: 650, minY: 50, maxX: 660, maxY: 560, type: "bumper" }, { minX: 300, minY: 250, maxX: 650, maxY: 350, type: "water" }, { minX: 300, minY: 350, maxX: 650, maxY: 370, type: "sand" }, { minX: 300, minY: 230, maxX: 650, maxY: 250, type: "sand" }, { minX: 60, minY: 250, maxX: 250, maxY: 350, type: "water" }, { minX: 60, minY: 230, maxX: 250, maxY: 250, type: "sand" }, { minX: 60, minY: 350, maxX: 250, maxY: 370, type: "sand" }, { minX: 250, minY: 230, maxX: 300, maxY: 370, type: "bridge" }];
+
+	module.exports = bumpersFour;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var Hole = __webpack_require__(2);
@@ -2155,8 +2191,9 @@
 	var hole = {
 	  0: [10, 10],
 	  1: [355, 100],
-	  2: [550, 100],
-	  3: [600, 100]
+	  2: [555, 100],
+	  3: [600, 100],
+	  4: [500, 100]
 	};
 
 	var GetHole = function GetHole(level, context) {
@@ -2166,7 +2203,7 @@
 	module.exports = GetHole;
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2176,10 +2213,10 @@
 	var ball = {
 	  0: { x: 1, y: 1, radius: 5 },
 	  1: { x: 355, y: 400, radius: 6 },
-	  2: { x: 150, y: 100, radius: 6 },
-	  3: { x: 550, y: 500, radius: 6 }
+	  2: { x: 75, y: 440, radius: 6 },
+	  3: { x: 550, y: 500, radius: 6 },
+	  4: { x: 200, y: 500, radius: 6 }
 	};
-
 	var GetBall = function GetBall(level, context) {
 	  return new Ball(ball[level], context);
 	};
@@ -2187,7 +2224,7 @@
 	module.exports = GetBall;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2264,13 +2301,13 @@
 	module.exports = Club;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var endGame = __webpack_require__(18);
-	var transitionToNextLevel = __webpack_require__(20);
+	var endGame = __webpack_require__(19);
+	var transitionToNextLevel = __webpack_require__(21);
 
 	module.exports = function (context, game, strokeCounter, playerClub, ballColor) {
 	    if (game.currentLevel.number < game.lastLevel) {
@@ -2283,13 +2320,13 @@
 	};
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var domManipulator = __webpack_require__(5);
-	var calculateScore = __webpack_require__(19);
+	var calculateScore = __webpack_require__(20);
 
 	module.exports = function (context, game, strokeCounter) {
 	  if (game.ball.inHole) {
@@ -2303,7 +2340,7 @@
 	};
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2322,13 +2359,13 @@
 	module.exports = scoreCalculator;
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var domManipulator = __webpack_require__(5);
-	var calculateScore = __webpack_require__(19);
+	var calculateScore = __webpack_require__(20);
 
 	module.exports = function (context, game, strokeCounter, ballColor) {
 	    var currentLevelNumber = game.currentLevel.number;
