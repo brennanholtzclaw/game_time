@@ -78,10 +78,37 @@ input {
   color: blue !important;
 }
 
+/*instruction*/
+
+.instruction-link {
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+  position: absolute;
+  margin-left: 10px;
+}
+
+#instruction-section {
+  bottom: 50%;
+  right: 80%;
+  left: 5px;
+  top: 20%;
+  margin: auto;
+  padding: 12px;
+  opacity: 0.80%;
+  display: none;
+  border-radius: 15px;
+  position: fixed;
+  width: 280px;
+  height: 300px;
+  background: orange;
+  text-align: center;
+}
+
 /*style score card*/
 
 #score-card {
-  bottom: 60%;
+  bottom: 50%;
   right: 0;
   left: 71%;
   margin: auto;
@@ -94,6 +121,7 @@ input {
   background: transparent;
   text-align: center;
 }
+
 
 th {
 	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
@@ -164,6 +192,27 @@ td {
 	opacity: 0.9;
 }
 
+/*welcome player card*/
+
+#welcome-player-div {
+  display: none;
+}
+
+#welcome-player {
+  float: right;
+  margin-right: 30px;
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+	font-size: 18px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: red !important;
+	text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+	color: #333;
+	opacity: 0.9;
+}
+
 /*end of game card*/
 
 #end-game-card {
@@ -172,7 +221,6 @@ td {
   left: 0;
   top: 0;
   margin: auto;
-  /*opacity: 0.85;*/
   display: none;
   padding: 12px;
   border-radius: 15px;
