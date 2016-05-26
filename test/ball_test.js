@@ -28,7 +28,7 @@ describe("Ball", function(){
 })
 
 describe("move()", function(){
-  it("should increase its x and y with no bounce", function(){
+  it("should increase its x and y with no bounce", sinon.test(function(){
     var coords = {x:0, y:0, radius:10}
     var ball = new Ball(coords)
 
@@ -36,7 +36,7 @@ describe("move()", function(){
     ball.ySpeed = 4;
     ball.xDirection = 1;
     ball.yDirection = 1;
-    sinon.stub(Ball.prototype, "collisionCheck");
+    sinon.stub(ball, "collisionCheck");
 
     assert.equal(ball.x, 0)
     assert.equal(ball.y, 0)
@@ -55,7 +55,7 @@ describe("move()", function(){
 
     assert.equal(ball.x, 2)
     assert.equal(ball.y, 6)
-  });
+  }));
 
   it("should stop completely when below a certain speed", function() {
     var coords = {x:0, y:0, radius:10}

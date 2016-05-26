@@ -18,7 +18,7 @@ describe('Checking ball direction', function(){
     assert(ball.xSpeed > 0, 'xSpeed less than zero')
   })
 
-  it("direction reverts to positive after stop", function(){
+  it("direction reverts to positive after stop", sinon.test(function(){
     var clubX = 1
     var clubY = 1
     var ballX = 5
@@ -30,10 +30,12 @@ describe('Checking ball direction', function(){
     ball.xSpeed = -.01
     ball.ySpeed = -.01
 
+    sinon.stub(ball, "collisionCheck");
+
     ball.move()
     // at the end of the move function the ball should encounter stopCheck which should flip direction back to positive
 
     assert(ball.xSpeed > 0, "ball x speed less than 0")
     assert(ball.ySpeed > 0, "ball y speed less than 0")
-  })
+  }))
 })

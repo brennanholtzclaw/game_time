@@ -31,7 +31,7 @@ describe('Collisions checks', function(){
   it("in sand the ball slows down", function() {
     var sand = new Bumper({minX: 0, minY: 0, maxX: 3, maxY: 3, type: "sand"})
     var ball = new Ball({x:10, y: 10, radius: 3}) // ball not in sand
-
+debugger;
     ball.collisionCheck([sand])
     var XSpeed = ball.xSpeed
     var YSpeed = ball.ySpeed
