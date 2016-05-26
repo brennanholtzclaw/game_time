@@ -142,7 +142,7 @@
 
 	Ball.prototype.holeCheck = function (puttHole) {
 	  if (Math.abs(puttHole.x - this.x) <= this.radius && Math.abs(puttHole.y - this.y) <= this.radius) {
-	    ballInHoleSound.src = '/sounds/ball-in-hole.mp3';
+	    ballInHoleSound.src = './../sounds/ball-in-hole.mp3';
 	    ballInHoleSound.play();
 	    this.x = puttHole.x;
 	    this.y = puttHole.y;

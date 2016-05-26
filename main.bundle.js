@@ -1817,7 +1817,7 @@
 
 	Ball.prototype.holeCheck = function (puttHole) {
 	  if (Math.abs(puttHole.x - this.x) <= this.radius && Math.abs(puttHole.y - this.y) <= this.radius) {
-	    ballInHoleSound.src = '/sounds/ball-in-hole.mp3';
+	    ballInHoleSound.src = './../sounds/ball-in-hole.mp3';
 	    ballInHoleSound.play();
 	    this.x = puttHole.x;
 	    this.y = puttHole.y;
@@ -1928,7 +1928,7 @@
 	    this.context.fillStyle = this.color;
 	  } else {
 	    var image = new Image();
-	    image.src = "../images/sand2.png";
+	    image.src = "./../images/sand2.png";
 	    var pattern = this.context.createPattern(image, "repeat");
 	    this.context.fillStyle = pattern;
 	  }
