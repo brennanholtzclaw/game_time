@@ -56,31 +56,18 @@ describe("move()", function(){
     assert.equal(ball.x, 2)
     assert.equal(ball.y, 6)
   });
-})
 
-describe("checking if it collides with puttHole", function(){
-  it("should stop moving when on the same coords as the hole", function(){
-    var coords = {x:0, y:0, radius:4}
+  it("should stop completely when below a certain speed", function() {
+    var coords = {x:0, y:0, radius:10}
     var ball = new Ball(coords)
-    var puttHole = new Hole(0, 0);
+    ball.moving = true
 
-    ball.moving = true;
-    assert.isOk(ball.moving);
+    assert.isOk(ball.moving)
 
-    ball.holeCheck(puttHole);
-    assert.notOk(ball.moving);
-  })
+    ball.xSpeed = 0.1
+    ball.ySpeed = 0.1
 
-  it("should stop moving when it's within its radius of the hole", function(){
-    var coords = {x:0, y:0, radius:4}
-    var ball = new Ball(coords)
-
-    var puttHole = new Hole(ball.radius, ball.radius);
-
-    ball.moving = true;
-    assert.isOk(ball.moving);
-
-    ball.holeCheck(puttHole);
-    assert.notOk(ball.moving);
+    ball.stopCheck()
+    assert.isNotOk(ball.moving)
   })
 })

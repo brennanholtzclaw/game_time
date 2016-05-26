@@ -19,31 +19,20 @@ describe('Collisions checks', function(){
     assert.isNotOk(noncollidingBall.isCollidingWith(sand))
   })
 
-  it("in sand hits the slows down function", function(){
-    var sand = new Bumper({minX: 0, minY: 0, maxX: 10, maxY: 10, type: "sand"})
-    var ball = new Ball({x:0, y: 0, radius:3})
 
-    var spy = sinon.spy(ball, "slowDownAgainst")
+  it("in sand the ball slows down", function() {
+    var sand = new Bumper({minX: 0, minY: 0, maxX: 3, maxY: 3, type: "sand"})
+    var ball = new Ball({x:10, y: 10, radius: 3}) // ball not in sand
+
     ball.collisionCheck([sand])
-
-    assert(spy.calledOnce, "slowDownAgainst method was not called on ball")
-    assert(spy.calledWith(sand), 'slowDownAgainst was called with unexpected arguments')
-  })
-
-  xit("in sand the ball slows down", function() {
-    var ball = new Ball({x:2, y: 2, radius: 3}) // ball not in sand
-    var obstacles = []
-    var sand = new Bumper({minX: 0, minY: 0, maxX: 1, maxY: 1, type: "sand"})
-    obstacles << sand
-
-    ball.collisionCheck([obstacles])
     var XSpeed = ball.xSpeed
     var YSpeed = ball.ySpeed
 
-    ball.x = 0
-    ball.y = 0 // move ball in sand
+    ball.x = 1
+    ball.y = 1 // move ball in sand
 
-    ball.collisionCheck([obstacles])
+    ball.collisionCheck([sand])
+
     var sandXSpeed = ball.xSpeed
     var sandYSpeed = ball.ySpeed
 
@@ -51,9 +40,22 @@ describe('Collisions checks', function(){
     assert.isAbove(YSpeed, sandYSpeed, "y speed on grass is greater than speed on sand")
   })
 
-  xit("should have a different direction after a bounce", function(){
-    // var bumper = new Bumper({minX:})
-    var ball = new Ball(0, 0, 4); // ball starting at 0, 0, and radius of 4
+  it("should have a different x direction after a horizontal bounce", function(){
+    var ball = new Ball({x:5, y: 5, radius: 2}) //already on Bumper
+    var bumper = new Bumper({minX: 5, minY: 0, maxX: 10, maxY: 10, type: "bumper"})
+
+    assert.equal(ball.xDirection, 1);
+    assert.equal(ball.yDirection, 1);
+
+    ball.collisionCheck([bumper]);
+
+    assert.equal(ball.xDirection, -1);
+    assert.equal(ball.yDirection, 1);
+  })
+
+  it("should have a different y direction after a vertical bounce", function(){
+    var ball = new Ball({x:5, y: 5, radius: 2}) //already on Bumper
+    var bumper = new Bumper({minX: 0, minY: 5, maxX: 10, maxY: 10, type: "bumper"})
 
     assert.equal(ball.xDirection, 1);
     assert.equal(ball.yDirection, 1);
@@ -63,4 +65,27 @@ describe('Collisions checks', function(){
     assert.equal(ball.xDirection, 1);
     assert.equal(ball.yDirection, -1);
   })
+
+
+  it("in sand triggers the adjust speed function with proper speed adjustment", sinon.test(function(){
+    var sand = new Bumper({minX: 0, minY: 0, maxX: 10, maxY: 10, type: "sand"})
+    var ball = new Ball({x:3, y: 3, radius:3})
+
+    var spy = sinon.spy(ball, "adjustSpeed")
+    ball.collisionCheck([sand])
+
+    assert(spy.calledOnce, "adjustSpeed method was not called on ball")
+    assert(spy.calledWith(0.8), 'adjustSpeed was called with unexpected arguments')
+  }))
+
+  it("hitting a bumper triggers the adjust speed function with proper speed adjustment", sinon.test(function(){
+    var bumper = new Bumper({minX: 0, minY: 0, maxX: 10, maxY: 10, type: "bumper"})
+    var ball = new Ball({x:3, y: 3, radius:3})
+
+    var spy = sinon.spy(ball, "adjustSpeed")
+    ball.collisionCheck([bumper])
+
+    assert(spy.calledOnce, "adjustSpeed method was not called on ball")
+    assert(spy.calledWith(0.9), 'adjustSpeed was called with unexpected arguments')
+  }))
 })
