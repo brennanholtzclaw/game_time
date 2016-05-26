@@ -156,7 +156,7 @@
 	    if (this.y + this.radius >= bumper.minY && this.y - this.radius <= bumper.maxY && this.x + this.radius >= bumper.minX && this.x - this.radius <= bumper.maxX) {
 	      if (bumper.type == "bumper") {
 	        this.bounceAgainst(bumper);
-	        ballBounceSound.src = './../sounds/ball-putt-2.mp3';
+	        ballBounceSound.src = './sounds/ball-putt-2.mp3';
 	        ballBounceSound.play();
 	      } else if (bumper.type == "sand") {
 	        this.slowDownAgainst(bumper);
