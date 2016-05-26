@@ -84,6 +84,7 @@ input {
 	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
 	font-size: 24px;
 	font-style: normal;
+  margin-top: 15px;
   position: absolute;
   margin-left: 10px;
 }
@@ -108,7 +109,7 @@ input {
 /*style score card*/
 
 #score-card {
-  bottom: 50%;
+  bottom: 60%;
   right: 0;
   left: 71%;
   margin: auto;
@@ -199,18 +200,17 @@ td {
 }
 
 #welcome-player {
-  float: right;
-  margin-right: 30px;
-	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
-	font-size: 18px;
+  text-align: center;
+  position: relative;
+  text-shadow: 2px 1px purple;
+  color: pink;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 35px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
-  color: red !important;
-	text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
-	color: #333;
-	opacity: 0.9;
+	opacity: 0.8;
 }
 
 /*end of game card*/
@@ -250,3 +250,4 @@ td {
 #restart-btn {
   margin-top: 30px;
 }
+
