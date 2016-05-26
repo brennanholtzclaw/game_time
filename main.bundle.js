@@ -1928,7 +1928,7 @@
 	    this.context.fillStyle = this.color;
 	  } else {
 	    var image = new Image();
-	    image.src = "./../images/sand2.png";
+	    image.src = "./images/sand2.png";
 	    var pattern = this.context.createPattern(image, "repeat");
 	    this.context.fillStyle = pattern;
 	  }
