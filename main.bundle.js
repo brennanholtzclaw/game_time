@@ -50,93 +50,92 @@
 	var canvas = document.getElementById('puts-puts-golf');
 	var context = canvas.getContext('2d');
 	var Hole = __webpack_require__(2);
-	var Ball = __webpack_require__(3);
-	var Bumper = __webpack_require__(5);
-	var domManipulator = __webpack_require__(6);
-	var Game = __webpack_require__(7);
-	var Club = __webpack_require__(17);
-	//var endGame = require("./endGame");
-	//var transitionToNextLevel = require("./transitionLevel");
-	var endLevel = __webpack_require__(18);
+	var Ball = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./ball\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var Bumper = __webpack_require__(4);
+	var domManipulator = __webpack_require__(5);
+	var Game = __webpack_require__(6);
+	var Club = __webpack_require__(16);
+	var endLevel = __webpack_require__(17);
 	var ballPuttSound = new Audio();
 	var endLevelClapSound = new Audio();
 
+	$('.instruction-link').on('click', function (ev) {
+	  $('#instruction-section').toggle();
+	});
+
 	$(document).ready(function () {
-	    $(".a-ball-color").on('click', function (ev) {
-	        ev.preventDefault;
+	  $(".a-ball-color").on('click', function (ev) {
+	    ev.preventDefault;
 
-	        var game = new Game(context);
-	        var playerName = domManipulator.getPlayerName();
-	        var ballColor = ev.currentTarget.id;
-	        var player = localStorage;
-	        var strokeCounter = 0;
-	        var totalScore = 0;
-	        var playerClub = new Club(context, game.ball);
-	        game.ball.color = ballColor;
+	    var game = new Game(context);
+	    var playerName = domManipulator.getPlayerName();
+	    var ballColor = ev.currentTarget.id;
+	    var player = localStorage;
+	    var strokeCounter = 0;
+	    var totalScore = 0;
+	    var playerClub = new Club(context, game.ball);
+	    game.ball.color = ballColor;
 
-	        // local storage
-	        player.setItem('name', playerName); //sets player name
-	        player.setItem('score', 0); //sets player score to zero
-	        //player.setItem('ballColor', ballColor); //set ballColor
+	    // local storage
+	    player.setItem('name', playerName); //sets player name
+	    domManipulator.insertPlayerName(player.getItem('name'));
 
-	        domManipulator.showScoreCard();
+	    domManipulator.showScoreCard();
 
-	        requestAnimationFrame(startLoop);
+	    requestAnimationFrame(startLoop);
 
-	        function startLoop() {
-	            game = new Game(context);
-	            totalScore = 0;
-	            strokeCounter = 0;
-	            playerClub = new Club(context, game.ball);
-	            game.ball.color = ballColor;
-	            requestAnimationFrame(gameLoop);
-	        };
+	    function startLoop() {
+	      game = new Game(context);
+	      totalScore = 0;
+	      strokeCounter = 0;
+	      playerClub = new Club(context, game.ball);
+	      game.ball.color = ballColor;
+	      requestAnimationFrame(gameLoop);
+	    };
 
-	        function gameLoop() {
-	            context.beginPath();
-	            context.clearRect(0, 0, canvas.width, canvas.height);
-	            context.closePath();
-	            game.bumpers.forEach(function (bumper) {
-	                bumper.draw();
-	            });
-	            game.hole.draw();
-	            game.ball.draw();
+	    function gameLoop() {
+	      context.beginPath();
+	      context.clearRect(0, 0, canvas.width, canvas.height);
+	      context.closePath();
+	      game.bumpers.forEach(function (bumper) {
+	        bumper.draw();
+	      });
+	      game.hole.draw();
+	      game.ball.draw();
 
-	            game.ball.holeCheck(game.hole);
-	            if (game.ball.moving) {
-	                game.ball.move(game.bumpers);
-	            }
-	            if (game.ball.inHole && game.gameOver === false) {
-	                endLevelClapSound.src = '/sounds/golf-clap.mp3';
-	                endLevelClapSound.play();
-	                endLevel(context, game, strokeCounter, playerClub, ballColor);
-	                strokeCounter = 0;
-	            }
-	            requestAnimationFrame(gameLoop);
-	        };
+	      game.ball.holeCheck(game.hole);
+	      if (game.ball.moving) {
+	        game.ball.move(game.bumpers);
+	      }
+	      if (game.ball.inHole && game.gameOver === false) {
+	        endLevel(context, game, strokeCounter, playerClub, ballColor);
+	        strokeCounter = 0;
+	      }
+	      requestAnimationFrame(gameLoop);
+	    };
 
-	        canvas.addEventListener('mousedown', function (event) {
-	            var that = this;
-	            if (game.ball.moving === false) {
-	                playerClub.getMousePosition(that, event);
-	                game.ball.moving = true;
-	                if (game.ball.inHole === false) {
-	                    ballPuttSound.src = '/sounds/ball-putt-4.mp3';
-	                    ballPuttSound.play();
-	                    strokeCounter++;
-	                    var level = game.currentLevel.number;
-	                    domManipulator.insertStroke(level, strokeCounter);
-	                }
-	            }
-	        }, false);
+	    canvas.addEventListener('mousedown', function (event) {
+	      var that = this;
+	      if (game.ball.moving === false) {
+	        ballPuttSound.src = './sounds/ball-putt-4.mp3';
+	        ballPuttSound.play();
+	        playerClub.getMousePosition(that, event);
+	        game.ball.moving = true;
+	        if (game.ball.inHole === false) {
+	          strokeCounter++;
+	          var level = game.currentLevel.number;
+	          domManipulator.insertStroke(level, strokeCounter);
+	        }
+	      }
+	    }, false);
 
-	        $("#restart-btn").on('click', function (ev) {
-	            ev.preventDefault;
-	            $('#end-game-card').hide();
-	            domManipulator.reset();
-	            requestAnimationFrame(startLoop);
-	        });
+	    $("#restart-btn").on('click', function (ev) {
+	      ev.preventDefault;
+	      $('#end-game-card').hide();
+	      domManipulator.reset();
+	      requestAnimationFrame(startLoop);
 	    });
+	  });
 	});
 
 /***/ },
@@ -1762,153 +1761,8 @@
 	module.exports = Hole;
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var CollisionDetector = __webpack_require__(4);
-	var ballInHoleSound = new Audio();
-	var ballBounceSound = new Audio();
-
-	var Ball = function Ball(coords, context) {
-	  this.x = coords.x;
-	  this.y = coords.y;
-	  this.radius = coords.radius || 10;;
-	  this.moving = false;
-	  this.context = context;
-	  this.xSpeed = 5;
-	  this.ySpeed = 5;
-	  this.xDirection = 1;
-	  this.yDirection = 1;
-	  this.color = 'white';
-	  this.inHole = false;
-	};
-
-	Ball.prototype.draw = function () {
-	  this.context.beginPath();
-	  this.context.fillStyle = this.color;
-	  this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-	  this.context.closePath();
-	  this.context.fill();
-	  return this;
-	};
-
-	Ball.prototype.move = function (bumpers) {
-	  this.x = this.x + this.xSpeed * this.xDirection;
-	  this.y = this.y + this.ySpeed * this.yDirection;
-	  this.collisionCheck(bumpers);
-	  this.xSpeed *= 0.989;
-	  this.ySpeed *= 0.989;
-	  this.stopCheck();
-
-	  return this;
-	};
-
-	Ball.prototype.stopCheck = function () {
-	  if (Math.abs(this.xSpeed) < 0.15 && Math.abs(this.ySpeed) < 0.15) {
-	    this.xSpeed = 1;
-	    this.ySpeed = 1;
-	    this.xDirection = 1;
-	    this.yDirection = 1;
-	    this.moving = false;
-	  }
-	};
-
-	Ball.prototype.holeCheck = function (puttHole) {
-	  if (Math.abs(puttHole.x - this.x) <= this.radius && Math.abs(puttHole.y - this.y) <= this.radius) {
-	    ballInHoleSound.src = './../sounds/ball-in-hole.mp3';
-	    ballInHoleSound.play();
-	    this.x = puttHole.x;
-	    this.y = puttHole.y;
-	    this.moving = false;
-	    this.inHole = true;
-	  }
-	};
-
-	Ball.prototype.collisionCheck = function (bumpers) {
-	  bumpers.forEach(function (bumper, index) {
-	    if (this.y + this.radius >= bumper.minY && this.y - this.radius <= bumper.maxY && this.x + this.radius >= bumper.minX && this.x - this.radius <= bumper.maxX) {
-	      if (bumper.type == "bumper") {
-	        this.bounceAgainst(bumper);
-	        ballBounceSound.src = './sounds/ball-putt-2.mp3';
-	        ballBounceSound.play();
-	      } else if (bumper.type == "sand") {
-	        this.slowDownAgainst(bumper);
-	      }
-	      this.xSpeed *= 0.89;
-	      this.ySpeed *= 0.89;
-	    }
-	  }, this);
-	  return this;
-	};
-
-	Ball.prototype.bounceAgainst = function (bumper) {
-	  var prevX = this.x - this.xSpeed * this.xDirection;
-	  var prevY = this.y - this.ySpeed * this.yDirection;
-
-	  if (this.changeXDirection(bumper.minX, bumper.maxX, prevX, this)) {
-	    this.xDirection *= -1;
-	  }
-	  if (this.changeYDirection(bumper.minY, bumper.maxY, prevY, this)) {
-	    this.yDirection *= -1;
-	  }
-	  this.xSpeed *= 0.8;
-	  this.ySpeed *= 0.8;
-	};
-
-	Ball.prototype.slowDownAgainst = function (bumper) {
-	  this.xSpeed *= 0.9;
-	  this.ySpeed *= 0.9;
-	};
-
-	Ball.prototype.changeXDirection = function (xMin, xMax, prevX, that) {
-	  return prevX - that.radius > xMax && that.x - that.radius <= xMax || // check for collision in x direction on right
-	  prevX + that.radius < xMin && that.x + that.radius >= xMin; // check for collision in x direction on left
-	};
-
-	Ball.prototype.changeYDirection = function (yMin, yMax, prevY, that) {
-	  return prevY - that.radius > yMax && that.y - that.radius <= yMax || // check for collision in y direction on bottom
-	  prevY + that.radius < yMin && that.y + that.radius >= yMin; // check for collision in y direction on top
-	};
-
-	module.exports = Ball;
-
-/***/ },
+/* 3 */,
 /* 4 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var collisionDetector = function collisionDetector(game) {
-	  return game;
-	};
-
-	// collisionDetector.prototype.bounceCheck = function() {
-	//   debugger;
-	//   game.bumpers.forEach(function (bumper) {
-	//     if ((ball.y + ball.radius >= bumper.minY && ball.y - ball.radius <= bumper.maxY) && (ball.x + ball.radius >= bumper.minX && ball.x - ball.radius <= bumper.maxX) ) {
-	//
-	//       var prevX = ball.x - ball.xSpeed * ball.xDirection;
-	//       var prevY = ball.y - ball.ySpeed * ball.yDirection;
-	//
-	//       if (ball.changeXDirection(bumper.minX, bumper.maxX, prevX, ball)){
-	//         ball.xDirection *= -1;
-	//       }
-	//       if (ball.changeYDirection(bumper.minY, bumper.maxY, prevY, ball)){
-	//         ball.yDirection *= -1;
-	//       }
-	//       ball.xSpeed *= 0.8;
-	//       ball.ySpeed *= 0.8;
-	//     }
-	//   }, ball);
-	//   return game;
-	// }
-
-	module.exports = collisionDetector;
-
-/***/ },
-/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1939,7 +1793,7 @@
 	module.exports = Bumper;
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1961,6 +1815,10 @@
 	        $welcomeCard.fadeOut();
 	        var playerName = $playerName.val();
 	        return playerName;
+	    },
+
+	    insertPlayerName: function insertPlayerName(name) {
+	        $('#welcome-player-div').append('<h6 id=welcome-player>Welcome to Puts-Puts ' + name + '</h6>').fadeIn(2000);
 	    },
 
 	    showScoreCard: function showScoreCard() {
@@ -1998,7 +1856,7 @@
 	        } else {
 	            $strokeToPar.text('You made par!');
 	        }
-	        $score.text('Your score is ' + score + ' !');
+	        $score.text('Your score for this hole: ' + score);
 	        $finishedHoleCard.fadeOut(4000);
 	    },
 
@@ -2009,7 +1867,11 @@
 
 	    endGame: function endGame(totalScore) {
 	        $endGameCard.show('slow');
-	        $totalScore.text(totalScore + ' points');
+	        if (totalScore === 1 || totalScore === -1) {
+	            $totalScore.text(totalScore + ' point');
+	        } else {
+	            $totalScore.text(totalScore + ' points');
+	        }
 	    },
 
 	    reset: function reset() {
@@ -2023,12 +1885,12 @@
 	module.exports = domManipulator;
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Level = __webpack_require__(8);
+	var Level = __webpack_require__(7);
 
 	function Game(context) {
 	  this.currentLevel = new Level(1, context);
@@ -2053,15 +1915,15 @@
 	module.exports = Game;
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getPar = __webpack_require__(9);
-	var getBumpers = __webpack_require__(10);
-	var getHole = __webpack_require__(15);
-	var getBall = __webpack_require__(16);
+	var getPar = __webpack_require__(8);
+	var getBumpers = __webpack_require__(9);
+	var getHole = __webpack_require__(14);
+	var getBall = __webpack_require__(15);
 
 	var Level = function Level(levelNum, context) {
 	  return {
@@ -2076,7 +1938,7 @@
 	module.exports = Level;
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2095,17 +1957,17 @@
 	module.exports = GetPar;
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bumpersOne = __webpack_require__(11);
-	var bumpersTest = __webpack_require__(12);
-	var bumpersTwo = __webpack_require__(13);
-	var bumpersThree = __webpack_require__(14);
+	var bumpersOne = __webpack_require__(10);
+	var bumpersTest = __webpack_require__(11);
+	var bumpersTwo = __webpack_require__(12);
+	var bumpersThree = __webpack_require__(13);
 
-	var Bumper = __webpack_require__(5);
+	var Bumper = __webpack_require__(4);
 	var bumpers = {
 	  0: bumpersTest,
 	  1: bumpersOne,
@@ -2124,16 +1986,28 @@
 	module.exports = GetBumpers;
 
 /***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var Bumper = __webpack_require__(4);
+
+	var bumpersOne = [{ minX: 200, minY: 50, maxX: 500, maxY: 60, type: "bumper" }, { minX: 200, minY: 450, maxX: 500, maxY: 460, type: "bumper" }, { minX: 200, minY: 50, maxX: 210, maxY: 450, type: "bumper" }, { minX: 500, minY: 50, maxX: 510, maxY: 460, type: "bumper" }, { minX: 275, minY: 150, maxX: 425, maxY: 160, color: "blue", type: "bumper" }, { minX: 350, minY: 150, maxX: 360, maxY: 360, color: "blue", type: "bumper" }, { minX: 210, minY: 400, maxX: 260, maxY: 450, type: "sand" }, { minX: 450, minY: 400, maxX: 500, maxY: 450, type: "sand" }];
+
+	module.exports = bumpersOne;
+
+/***/ },
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var Bumper = __webpack_require__(5);
+	var Bumper = __webpack_require__(4);
 
-	var bumpersOne = [{ minX: 200, minY: 50, maxX: 500, maxY: 60, type: "bumper" }, { minX: 200, minY: 450, maxX: 500, maxY: 460, type: "bumper" }, { minX: 200, minY: 50, maxX: 210, maxY: 450, type: "bumper" }, { minX: 500, minY: 50, maxX: 510, maxY: 460, type: "bumper" }, { minX: 275, minY: 150, maxX: 425, maxY: 160, color: "blue", type: "bumper" }, { minX: 350, minY: 150, maxX: 360, maxY: 360, color: "blue", type: "bumper" }, { minX: 210, minY: 400, maxX: 260, maxY: 450, type: "sand" }, { minX: 450, minY: 400, maxX: 500, maxY: 450, type: "sand" }];
+	var bumpersTest = [{ minX: 1, minY: 1, maxX: 2, maxY: 2, type: "bumper" }];
 
-	module.exports = bumpersOne;
+	module.exports = bumpersTest;
 
 /***/ },
 /* 12 */
@@ -2141,11 +2015,10 @@
 
 	"use strict";
 
-	var Bumper = __webpack_require__(5);
+	var Bumper = __webpack_require__(4);
 
-	var bumpersTest = [{ minX: 1, minY: 1, maxX: 2, maxY: 2, type: "bumper" }];
-
-	module.exports = bumpersTest;
+	var bumpersTwo = [{ minX: 50, minY: 50, maxX: 250, maxY: 60, type: "bumper" }, { minX: 50, minY: 250, maxX: 660, maxY: 260, type: "bumper" }, { minX: 50, minY: 50, maxX: 60, maxY: 260, type: "bumper" }, { minX: 250, minY: 50, maxX: 260, maxY: 200, type: "bumper" }, { minX: 250, minY: 200, maxX: 460, maxY: 210, type: "bumper" }, { minX: 450, minY: 50, maxX: 460, maxY: 200, type: "bumper" }, { minX: 450, minY: 50, maxX: 660, maxY: 60, type: "bumper" }, { minX: 650, minY: 50, maxX: 660, maxY: 260, type: "bumper" }];
+	module.exports = bumpersTwo;
 
 /***/ },
 /* 13 */
@@ -2153,25 +2026,14 @@
 
 	"use strict";
 
-	var Bumper = __webpack_require__(5);
-
-	var bumpersTwo = [{ minX: 50, minY: 50, maxX: 250, maxY: 60, type: "bumper" }, { minX: 50, minY: 250, maxX: 660, maxY: 260, type: "bumper" }, { minX: 50, minY: 50, maxX: 60, maxY: 260, type: "bumper" }, { minX: 250, minY: 50, maxX: 260, maxY: 200, type: "bumper" }, { minX: 250, minY: 200, maxX: 460, maxY: 210, type: "bumper" }, { minX: 450, minY: 50, maxX: 460, maxY: 200, type: "bumper" }, { minX: 450, minY: 50, maxX: 660, maxY: 60, type: "bumper" }, { minX: 650, minY: 50, maxX: 660, maxY: 260, type: "bumper" }];
-	module.exports = bumpersTwo;
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var Bumper = __webpack_require__(5);
+	var Bumper = __webpack_require__(4);
 
 	var bumpersThree = [{ minX: 50, minY: 50, maxX: 660, maxY: 60, type: "bumper" }, { minX: 50, minY: 550, maxX: 650, maxY: 560, type: "bumper" }, { minX: 50, minY: 50, maxX: 60, maxY: 550, type: "bumper" }, { minX: 650, minY: 50, maxX: 660, maxY: 560, type: "bumper" }, { minX: 100, minY: 150, maxX: 350, maxY: 210, color: "red", type: "bumper" }, { minX: 250, minY: 250, maxX: 500, maxY: 310, color: "yellow", type: "bumper" }, { minX: 400, minY: 350, maxX: 630, maxY: 410, color: "blue", type: "bumper" }];
 
 	module.exports = bumpersThree;
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2192,12 +2054,12 @@
 	module.exports = GetHole;
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Ball = __webpack_require__(3);
+	var Ball = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../ball\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var ball = {
 	  0: { x: 1, y: 1, radius: 5 },
@@ -2213,7 +2075,7 @@
 	module.exports = GetBall;
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2263,12 +2125,12 @@
 	  var squareOfYs = Math.pow(clubY - ballY, 2);
 	  var clubDistance = Math.sqrt(squareOfXs + squareOfYs);
 
-	  this.speedCheck(rise, run, ballXSpeed, ballYSpeed, clubDistance, clubX, clubY, slope);
+	  this.speedCheck(ballXSpeed, ballYSpeed, clubDistance);
 
 	  return { bothSlope: slope };
 	};
 
-	Club.prototype.speedCheck = function (rise, run, ballXSpeed, ballYSpeed, clubDistance, clubX, clubY, slope) {
+	Club.prototype.speedCheck = function (ballXSpeed, ballYSpeed, clubDistance) {
 	  var ballXSpeed = ballXSpeed * (clubDistance / 500);
 	  var ballYSpeed = ballYSpeed * (clubDistance / 500);
 
@@ -2290,13 +2152,13 @@
 	module.exports = Club;
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var endGame = __webpack_require__(19);
-	var transitionToNextLevel = __webpack_require__(21);
+	var endGame = __webpack_require__(18);
+	var transitionToNextLevel = __webpack_require__(20);
 
 	module.exports = function (context, game, strokeCounter, playerClub, ballColor) {
 	    if (game.currentLevel.number < game.lastLevel) {
@@ -2309,33 +2171,32 @@
 	};
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var domManipulator = __webpack_require__(6);
-	var calculateScore = __webpack_require__(20);
+	var domManipulator = __webpack_require__(5);
+	var calculateScore = __webpack_require__(19);
 
 	module.exports = function (context, game, strokeCounter) {
-	    if (game.ball.inHole) {
-	        var score = calculateScore.level(strokeCounter, game.par);
-	        calculateScore.total(game, score);
-	        domManipulator.insertScore(game.currentLevel.number, score);
-	        domManipulator.endGame(game.playerScore);
-	        game.gameOver = true;
-	        game.ball.inHole = false;
-	    }
+	  if (game.ball.inHole) {
+	    var score = calculateScore.level(strokeCounter, game.par);
+	    calculateScore.total(game, score);
+	    domManipulator.insertScore(game.currentLevel.number, score);
+	    domManipulator.endGame(game.playerScore);
+	    game.gameOver = true;
+	    game.ball.inHole = false;
+	  }
 	};
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	var scoreCalculator = {
-
 	    level: function level(stroke, par) {
 	        var score = stroke - par;
 	        return score;
@@ -2349,13 +2210,13 @@
 	module.exports = scoreCalculator;
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var domManipulator = __webpack_require__(6);
-	var calculateScore = __webpack_require__(20);
+	var domManipulator = __webpack_require__(5);
+	var calculateScore = __webpack_require__(19);
 
 	module.exports = function (context, game, strokeCounter, ballColor) {
 	    var currentLevelNumber = game.currentLevel.number;
