@@ -55,13 +55,13 @@
 	var domManipulator = __webpack_require__(6);
 	var Game = __webpack_require__(7);
 	var Club = __webpack_require__(17);
-	//var calculateScore = require("./scoreCalculator");
-	var endGame = __webpack_require__(18);
-	var transitionToNextLevel = __webpack_require__(20);
+	//var endGame = require("./endGame");
+	//var transitionToNextLevel = require("./transitionLevel");
+	var endLevel = __webpack_require__(18);
 
 	$(document).ready(function () {
 	    $(".a-ball-color").on('click', function (ev) {
-	        ev.prventDefault;
+	        ev.preventDefault;
 
 	        var game = new Game(context);
 	        var playerName = domManipulator.getPlayerName();
@@ -82,7 +82,11 @@
 	        requestAnimationFrame(startLoop);
 
 	        function startLoop() {
-	            var newGame = new Game(context);
+	            game = new Game(context);
+	            totalScore = 0;
+	            strokeCounter = 0;
+	            playerClub = new Club(context, game.ball);
+	            game.ball.color = ballColor;
 	            requestAnimationFrame(gameLoop);
 	        };
 
@@ -100,29 +104,18 @@
 	            if (game.ball.moving) {
 	                game.ball.move(game.bumpers);
 	            }
-	            if (game.ball.inHole) {
-	                requestAnimationFrame(endLevel);
+	            if (game.ball.inHole && game.gameOver === false) {
+	                endLevel(context, game, strokeCounter, playerClub, ballColor);
+	                strokeCounter = 0;
 	            }
 	            requestAnimationFrame(gameLoop);
 	        };
 
-	        function endLevel() {
-	            if (game.currentLevel.number < game.lastLevel) {
-	                transitionToNextLevel(context, game, strokeCounter, ballColor);
-	                playerClub.golfBall = game.currentLevel.ball;
-	                game.ball.color = ballColor;
-	                requestAnimationFrame(gameLoop);
-	                strokeCounter = 0;
-	            } else {
-	                endGame(context, game, strokeCounter);
-	            }
-	        }
-
 	        canvas.addEventListener('mousedown', function (event) {
 	            var that = this;
 	            if (game.ball.moving === false) {
-	                var mousePos = playerClub.getMousePosition(that, event);
-	                moveBall(mousePos);
+	                playerClub.getMousePosition(that, event);
+	                game.ball.moving = true;
 	                if (game.ball.inHole === false) {
 	                    strokeCounter++;
 	                    var level = game.currentLevel.number;
@@ -131,9 +124,12 @@
 	            }
 	        }, false);
 
-	        function moveBall(mousePos) {
-	            game.ball.moving = true;
-	        }
+	        $("#restart-btn").on('click', function (ev) {
+	            ev.preventDefault;
+	            $('#end-game-card').hide();
+	            domManipulator.reset();
+	            requestAnimationFrame(startLoop);
+	        });
 	    });
 	});
 
@@ -1968,7 +1964,7 @@
 	    },
 
 	    insertTableData: function insertTableData(level, par, score) {
-	        $scoreTable.append('<tr><td>' + level + '</td><td>' + par + '</td><td id=stroke' + level + '>0</td><td class=scores id=score' + level + '>0</td></tr>');
+	        $scoreTable.append('<tr class=tableRow><td>' + level + '</td><td>' + par + '</td><td id=stroke' + level + '>0</td><td class=scores id=score' + level + '>0</td></tr>');
 	    },
 
 	    showEndOfLevelCard: function showEndOfLevelCard(par, stroke, score) {
@@ -2002,6 +1998,13 @@
 	    endGame: function endGame(totalScore) {
 	        $endGameCard.show('slow');
 	        $totalScore.text(totalScore + ' points');
+	    },
+
+	    reset: function reset() {
+	        $('#end-game-card').hide();
+	        $('.tableRow').remove();
+	        $('#stroke1').text(0);
+	        $('#score1').text(0);
 	    }
 	};
 
@@ -2022,6 +2025,8 @@
 	  this.ball = this.currentLevel.ball;
 	  this.bumpers = this.currentLevel.bumpers;
 	  this.par = this.currentLevel.par;
+	  this.playerScore = 0;
+	  this.gameOver = false;
 	}
 
 	Game.prototype.updateLevel = function (context) {
@@ -2276,17 +2281,18 @@
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var domManipulator = __webpack_require__(6);
-	var calculateScore = __webpack_require__(19);
+	var endGame = __webpack_require__(19);
+	var transitionToNextLevel = __webpack_require__(21);
 
-	module.exports = function (context, game, strokeCounter) {
-	    if (game.ball.inHole) {
-	        var score = calculateScore.levelScore(strokeCounter, game.par);
-	        domManipulator.insertScore(game.currentLevel.number, score);
-	        var totalScore = calculateScore.totalScore(score);
-	        domManipulator.endGame(totalScore);
+	module.exports = function (context, game, strokeCounter, playerClub, ballColor) {
+	    if (game.currentLevel.number < game.lastLevel) {
+	        transitionToNextLevel(context, game, strokeCounter, ballColor);
+	        playerClub.golfBall = game.currentLevel.ball;
+	        game.ball.color = ballColor;
+	    } else {
+	        endGame(context, game, strokeCounter);
 	    }
 	};
 
@@ -2296,37 +2302,54 @@
 
 	'use strict';
 
-	var $ = __webpack_require__(1);
+	var domManipulator = __webpack_require__(6);
+	var calculateScore = __webpack_require__(20);
 
-	var calculateScore = {
-
-	    levelScore: function levelScore(stroke, par) {
-	        return stroke - par;
-	    },
-
-	    totalScore: function totalScore(score) {
-	        var levelOneScore = document.getElementById('score1').innerHTML;
-	        var levelTwoScore = document.getElementById('score2').innerHTML;
-	        return parseInt(levelOneScore) + parseInt(levelTwoScore) + score;
+	module.exports = function (context, game, strokeCounter) {
+	    if (game.ball.inHole) {
+	        var score = calculateScore.level(strokeCounter, game.par);
+	        calculateScore.total(game, score);
+	        domManipulator.insertScore(game.currentLevel.number, score);
+	        domManipulator.endGame(game.playerScore);
+	        game.gameOver = true;
+	        game.ball.inHole = false;
 	    }
 	};
 
-	module.exports = calculateScore;
-
 /***/ },
 /* 20 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var scoreCalculator = {
+
+	    level: function level(stroke, par) {
+	        var score = stroke - par;
+	        return score;
+	    },
+
+	    total: function total(game, score) {
+	        game.playerScore = game.playerScore + score;
+	    }
+	};
+
+	module.exports = scoreCalculator;
+
+/***/ },
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var domManipulator = __webpack_require__(6);
-	var calculateScore = __webpack_require__(19);
-	var endGame = __webpack_require__(18);
+	var calculateScore = __webpack_require__(20);
 
 	module.exports = function (context, game, strokeCounter, ballColor) {
 	    var currentLevelNumber = game.currentLevel.number;
 	    var currentPar = game.currentLevel.par;
-	    var score = calculateScore.levelScore(strokeCounter, currentPar);
+	    var score = calculateScore.level(strokeCounter, currentPar);
+	    calculateScore.total(game, score);
 	    domManipulator.insertScore(currentLevelNumber, score);
 	    game.updateLevel(context);
 	    game.ball.color = ballColor;
