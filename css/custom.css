@@ -99,7 +99,7 @@ input {
   margin: auto;
   padding: 12px;
   opacity: 0.80%;
-  /*display: none;*/
+  display: none;
   border-radius: 15px;
   position: fixed;
   width: 280px;
