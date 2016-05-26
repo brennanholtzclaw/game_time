@@ -1,6 +1,6 @@
 var chai = require('chai')
 var assert = chai.assert;
-var sinon = require('sinon');
+// var sinon = require('sinon');
 var Bumper = require("../lib/bumper")
 
 describe("Bumper", function(){
@@ -26,5 +26,17 @@ describe("Bumper", function(){
     it("should have a default color of white", function(){
       assert.equal(bumper.color, "white")
     });
+
+    it("can have a type of sand", function() {
+      var sand = new Bumper({minX: 0, minY:0, maxX:10, maxY:10, type:"sand"})
+
+      assert.equal(sand.type, "sand")
+    })
+
+    it("can have a type of bumper", function() {
+      var bumper = new Bumper({minX: 0, minY:0, maxX:10, maxY:10, type:"bumper"})
+
+      assert.equal(bumper.type, "bumper")
+    })
   });
 });
