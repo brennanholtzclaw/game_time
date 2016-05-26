@@ -1,84 +1,99 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Game Time</title>
-  <link href="css/custom.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>Game Time</title>
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  </head>
+  <body>
 
-  <canvas id="puts-puts-golf"
-          class="game-canvas"
-          width="700px"
-          height="600px"></canvas>
+    <canvas id="puts-puts-golf"
+            class="game-canvas"
+            width="700px"
+            height="600px"></canvas>
 
-  <section id='welcome-card'>
+    <section id='welcome-card'>
 
-    <header>
-    <h3 class='text'id='welcome-text'>Welcome to Puts-Puts Golf</h3>
-    </header>
+      <header>
+        <h3 class='text'id='welcome-text'>Welcome to Puts-Puts Golf</h3>
+      </header>
 
-    <form id='start-game-form'>
-      <input type='text' id="player-name" placeholder="Enter your player name"
-         name="name" class='validate' autocomplete='off'><br><br>
-    </form>
+      <form id='start-game-form'>
+        <input type='text' id="player-name" placeholder="Enter your player name"
+                                            name="name" class='validate' autocomplete='off'><br><br>
+      </form>
 
-    <h5 class='text' id='ball-color-text'>Choose a ball to get started</h5><br><br><br>
+      <h5 class='text' id='ball-color-text'>Choose a ball to get start</h5><br><br><br>
 
-          <div class="col s12 m12" id='ball-color-div'>
-              <a class='a-ball-color' id='white' href='#'><img class='ball-colors'
-                src='./images/white-ball.png' /></a>
-              <a class='a-ball-color' id='orange' href='#'><img class='ball-colors'
-                src='./images/orange-ball.png' /></a>
-              <a class='a-ball-color' id='pink' href='#'><img class='ball-colors'
-                src='./images/pink-ball.gif' /></a>
-              <a class='a-ball-color' id='purple' href='#'><img class='ball-colors'
-                src='./images/purple-ball.png' /></a>
-              <a class='a-ball-color' id='blue' href='#'><img class='ball-colors'
-                src='./images/blue-ball.png' /></a>
-              <a class='a-ball-color' id='yellow' href='#'><img class='ball-colors'
-               src='./images/yellow-ball.png' /></a>
-          </div>
+      <div class="col s12 m12" id='ball-color-div'>
+        <a class='a-ball-color' id='white' href='#'><img class='ball-colors'
+           src='./images/white-ball.png' /></a>
+        <a class='a-ball-color' id='orange' href='#'><img class='ball-colors'
+           src='./images/orange-ball.png' /></a>
+        <a class='a-ball-color' id='pink' href='#'><img class='ball-colors'
+           src='./images/pink-ball.gif' /></a>
+        <a class='a-ball-color' id='purple' href='#'><img class='ball-colors'
+           src='./images/purple-ball.png' /></a>
+        <a class='a-ball-color' id='blue' href='#'><img class='ball-colors'
+           src='./images/blue-ball.png' /></a>
+        <a class='a-ball-color' id='yellow' href='#'><img class='ball-colors'
+           src='./images/yellow-ball.png' /></a>
+      </div>
 
-  </section>
+    </section>
 
-          <section id='score-card'>
+    <div id='welcome-player-div'>
+    </div>
 
-            <table class='bordered centered' id='score-table'>
+    <section id='score-card'>
 
-              <thead>
-                <tr>
-                  <th data-field="hole">Hole</th>
-                  <th data-field="par">Par</th>
-                  <th data-field="stroke">Stroke</th>
-                  <th data-field="score">Score</th>
-                </tr>
-              </thead>
+      <table class='bordered centered' id='score-table'>
 
-              <tbody>
-                <tr>
-                  <td class='1' id='hole1'>1</td>
-                  <td class='1' id='par1'>2</td>
-                  <td class='1' id='stroke1'>0</td>
-                  <td class='scores' id='score1'>0</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+        <thead>
+          <tr>
+            <th data-field="hole">Hole</th>
+            <th data-field="par">Par</th>
+            <th data-field="stroke">Stroke</th>
+            <th data-field="score">Score</th>
+          </tr>
+        </thead>
 
-          <section id='finished-hole-card'>
-            <h4 id='stroke-to-par'></h4><br><br>
-            <h5 id='level-score'></h5>
-          </section>
+        <tbody>
+          <tr>
+            <td class='1' id='hole1'>1</td>
+            <td class='1' id='par1'>2</td>
+            <td class='1' id='stroke1'>0</td>
+            <td class='scores' id='score1'>0</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-          <section id="end-game-card">
-            <h3 class='total-score-class'>Game Over!</h3>
-            <h4 class='total-score-class'>You finished with</h4>
-            <h4 class='total-score-class' id='total-score'></h4>
-            <button id='restart-btn'>Restart Game</button>
-            </section>
+    <section id='finished-hole-card'>
+      <h4 id='stroke-to-par'></h4><br><br>
+      <h5 id='level-score'></h5>
+      <a href="http://photobucket.com/images/clapping%20hands%20animation" target="_blank"><img src="http://i56.photobucket.com/albums/g185/RickCanyon/clappinghands.gif" border="0" alt="clapping hands animation photo: Applause clappinghands.gif"/></a>
+    </section>
 
-  <script src="main.bundle.js"></script>
-</body>
+    <section id="end-game-card">
+      <h3 class='total-score-class'>Game Over!</h3>
+      <h4 class='total-score-class'>You finished with</h4>
+      <h4 class='total-score-class' id='total-score'></h4>
+      <button id='restart-btn'>Restart Game</button>
+    </section>
+
+    <a class='instruction-link' href='#'>Instructions</a>
+
+    <section id='instruction-section'>
+      <header>
+        <h5>Instructions to the game</h5>
+        <p>To aim your ball, place the cursor in the oposite direction that you want
+        your ball to move. To hit the ball just click on the mouse anywhere on
+        the green. The closer the cursor is to the ball, when you click the
+        mouse, the slower the ball will move.</p>
+    </section>
+
+    <script src="main.bundle.js"></script>
+  </body>
 </html>
