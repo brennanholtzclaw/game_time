@@ -93,6 +93,8 @@
 	'use strict';
 
 	var CollisionDetector = __webpack_require__(4);
+	var ballInHoleSound = new Audio();
+	var ballBounceSound = new Audio();
 
 	var Ball = function Ball(coords, context) {
 	  this.x = coords.x;
@@ -140,6 +142,8 @@
 
 	Ball.prototype.holeCheck = function (puttHole) {
 	  if (Math.abs(puttHole.x - this.x) <= this.radius && Math.abs(puttHole.y - this.y) <= this.radius) {
+	    ballInHoleSound.src = '/sounds/ball-in-hole.mp3';
+	    ballInHoleSound.play();
 	    this.x = puttHole.x;
 	    this.y = puttHole.y;
 	    this.moving = false;
@@ -152,6 +156,8 @@
 	    if (this.y + this.radius >= bumper.minY && this.y - this.radius <= bumper.maxY && this.x + this.radius >= bumper.minX && this.x - this.radius <= bumper.maxX) {
 	      if (bumper.type == "bumper") {
 	        this.bounceAgainst(bumper);
+	        ballBounceSound.src = '/sounds/ball-putt-2.mp3';
+	        ballBounceSound.play();
 	      } else if (bumper.type == "sand") {
 	        this.slowDownAgainst(bumper);
 	      }

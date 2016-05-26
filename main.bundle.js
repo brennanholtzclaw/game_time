@@ -58,6 +58,8 @@
 	//var endGame = require("./endGame");
 	//var transitionToNextLevel = require("./transitionLevel");
 	var endLevel = __webpack_require__(18);
+	var ballPuttSound = new Audio();
+	var endLevelClapSound = new Audio();
 
 	$(document).ready(function () {
 	    $(".a-ball-color").on('click', function (ev) {
@@ -105,6 +107,8 @@
 	                game.ball.move(game.bumpers);
 	            }
 	            if (game.ball.inHole && game.gameOver === false) {
+	                endLevelClapSound.src = '/sounds/golf-clap.mp3';
+	                endLevelClapSound.play();
 	                endLevel(context, game, strokeCounter, playerClub, ballColor);
 	                strokeCounter = 0;
 	            }
@@ -117,6 +121,8 @@
 	                playerClub.getMousePosition(that, event);
 	                game.ball.moving = true;
 	                if (game.ball.inHole === false) {
+	                    ballPuttSound.src = '/sounds/ball-putt-4.mp3';
+	                    ballPuttSound.play();
 	                    strokeCounter++;
 	                    var level = game.currentLevel.number;
 	                    domManipulator.insertStroke(level, strokeCounter);
@@ -1762,6 +1768,8 @@
 	'use strict';
 
 	var CollisionDetector = __webpack_require__(4);
+	var ballInHoleSound = new Audio();
+	var ballBounceSound = new Audio();
 
 	var Ball = function Ball(coords, context) {
 	  this.x = coords.x;
@@ -1809,6 +1817,8 @@
 
 	Ball.prototype.holeCheck = function (puttHole) {
 	  if (Math.abs(puttHole.x - this.x) <= this.radius && Math.abs(puttHole.y - this.y) <= this.radius) {
+	    ballInHoleSound.src = '/sounds/ball-in-hole.mp3';
+	    ballInHoleSound.play();
 	    this.x = puttHole.x;
 	    this.y = puttHole.y;
 	    this.moving = false;
@@ -1821,6 +1831,8 @@
 	    if (this.y + this.radius >= bumper.minY && this.y - this.radius <= bumper.maxY && this.x + this.radius >= bumper.minX && this.x - this.radius <= bumper.maxX) {
 	      if (bumper.type == "bumper") {
 	        this.bounceAgainst(bumper);
+	        ballBounceSound.src = '/sounds/ball-putt-2.mp3';
+	        ballBounceSound.play();
 	      } else if (bumper.type == "sand") {
 	        this.slowDownAgainst(bumper);
 	      }
